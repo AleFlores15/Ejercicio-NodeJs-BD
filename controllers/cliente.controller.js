@@ -21,3 +21,18 @@ exports.obtenerClientePorId = async (req, res) => {
     res.status(500).json({ mensaje: "Error al obtener el cliente", error });
   }
 };
+
+
+exports.actualizarCliente = async (req, res) => {
+  try {
+    const cliente = await Cliente.findByPk(req.params.id);
+    if (!cliente) {
+      return res.status(404).json({ mensaje: "Cliente no encontrado" });
+    }
+
+    await cliente.update(req.body);
+    res.json({ mensaje: "Cliente actualizado correctamente", cliente });
+  } catch (error) {
+    res.status(500).json({ mensaje: "Error al actualizar el cliente", error });
+  }
+};
