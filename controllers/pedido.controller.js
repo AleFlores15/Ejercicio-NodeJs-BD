@@ -21,3 +21,17 @@ exports.obtenerPedidoPorId = async (req, res) => {
     res.status(500).json({ mensaje: "Error al obtener el pedido", error });
   }
 }
+
+exports.actualizarPedido = async (req, res) => {
+  try {
+    const pedido = await Pedido.findByPk(req.params.id);
+    if (!pedido) {
+      return res.status(404).json({ mensaje: "Pedido no encontrado" });
+    }
+
+    await pedido.update(req.body);
+    res.json({ mensaje: "Pedido actualizado correctamente", pedido });
+  } catch (error) {
+    res.status(500).json({ mensaje: "Error al actualizar el pedido", error });
+  }
+};  
