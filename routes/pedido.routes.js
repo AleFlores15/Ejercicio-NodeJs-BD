@@ -3,7 +3,10 @@ const router = express.Router();
 const {
   obtenerPedidos,
   crearPedido,
+  obtenerPedidoPorId,
 } = require("../controllers/pedido.controller");
 router.get("/pedidos", obtenerPedidos);
 router.post("/pedidos", crearPedido);
+router.get("/pedidos/:id", obtenerPedidoPorId);
+
 module.exports = router;
