@@ -35,3 +35,17 @@ exports.actualizarPedido = async (req, res) => {
     res.status(500).json({ mensaje: "Error al actualizar el pedido", error });
   }
 };  
+
+exports.eliminarPedido = async (req, res) => {
+  try {
+    const pedido = await Pedido.findByPk(req.params.id);
+    if (!pedido) {
+      return res.status(404).json({ mensaje: "Pedido no encontrado" });
+    }
+
+    await pedido.destroy();
+    res.json({ mensaje: "Pedido eliminado correctamente" });
+  } catch (error) {
+    res.status(500).json({ mensaje: "Error al eliminar el pedido", error });
+  }
+};
