@@ -36,3 +36,17 @@ exports.actualizarCliente = async (req, res) => {
     res.status(500).json({ mensaje: "Error al actualizar el cliente", error });
   }
 };
+
+exports.eliminarCliente = async (req, res) => {
+  try {
+    const cliente = await Cliente.findByPk(req.params.id);
+    if (!cliente) {
+      return res.status(404).json({ mensaje: "Cliente no encontrado" });
+    }
+
+    await cliente.destroy();
+    res.json({ mensaje: "Cliente eliminado correctamente" });
+  } catch (error) {
+    res.status(500).json({ mensaje: "Error al eliminar el cliente", error });
+  }
+}
